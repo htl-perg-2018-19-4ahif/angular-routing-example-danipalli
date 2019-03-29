@@ -1,0 +1,8 @@
+<h2>Pokemonlist</h2>
+
+<input type="text"  [(ngModel)]="filter" (change)="loadPokeList()">
+<button type="button" (click)="loadPokeList()">Filter  </button>
+
+<ul>
+  <li *ngFor="let pokemon of pokeList"><a routerLink="/pokemons/{{ pokemon.id }}">{{ pokemon.name }}</a></li>
+</ul>
