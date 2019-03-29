@@ -22,19 +22,17 @@ interface IResponse {
   styleUrls: ['./poke-details.component.css']
 })
 export class PokeDetailsComponent implements OnInit {
-  pokemonDetails: IPokemonDetails = { name: "", abilities: [] };
+  pokemonDetails: IPokemonDetails = { name: '', abilities: [] };
   host = 'https://pokeapi.co/api/v2';
 
-  constructor(private route: ActivatedRoute, private httpClient: HttpClient) { 
-    console.log('Created...'); 
-  }
+  constructor(private route: ActivatedRoute, private httpClient: HttpClient) {}
 
-  async ngOnInit() { 
+  async ngOnInit() {
     let id;
     this.route.params.subscribe(async (params) => (id = params.id));
     id++;
 
-    let res: IResponse = await this.httpClient.get<IResponse>(this.host + '/pokemon/'+(id)).toPromise();
+    const res: IResponse = await this.httpClient.get<IResponse>(this.host + '/pokemon/' + (id)).toPromise();
 
     this.pokemonDetails.name = res.forms[0].name;
     res.abilities.forEach(ability => {

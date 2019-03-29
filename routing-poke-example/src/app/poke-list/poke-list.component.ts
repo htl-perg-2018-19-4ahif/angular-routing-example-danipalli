@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-interface IPokeResponse{
+interface IPokeResponse {
   count: number;
   results: IPokemon[];
 }
@@ -20,22 +20,22 @@ interface IPokemon {
 export class PokeListComponent {
   host = 'https://pokeapi.co/api/v2';
   pokeList: IPokemon[] = [];
-  filter: string = '';
+  filter = '';
 
-  constructor(private httpClient: HttpClient){
+  constructor(private httpClient: HttpClient) {
     this.loadPokeList();
   }
 
-  async loadPokeList(){
+  async loadPokeList() {
     const res = await this.httpClient.get<IPokeResponse>(this.host + '/pokemon').toPromise();
-    this.pokeList = (await this.httpClient.get<IPokeResponse>(this.host + '/pokemon?limit='+res.count).toPromise()).results;
-    
+    this.pokeList = (await this.httpClient.get<IPokeResponse>(this.host + '/pokemon?limit=' + res.count).toPromise()).results;
+
     let count;
-    for (count = 0; count < this.pokeList.length; count++) { 
+    for (count = 0; count < this.pokeList.length; count++) {
       this.pokeList[count].id = count;
     }
-    
-    if(this.filter !== ''){
+
+    if (this.filter !== '') {
       this.pokeList = this.pokeList.filter(poke => poke.name.startsWith(this.filter));
     }
   }
